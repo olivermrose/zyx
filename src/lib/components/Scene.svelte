@@ -1,14 +1,14 @@
 <script lang="ts">
 	import { T, useThrelte } from "@threlte/core";
 	import { OrbitControls } from "@threlte/extras";
-	import { Color, Fog, PCFSoftShadowMap } from "three";
+	import { Color, Fog, PCFShadowMap } from "three";
 	import Hands from "./Hands.svelte";
 	import Rifle from "./Rifle.svelte";
 
 	const { scene, renderer } = useThrelte();
 
 	renderer.shadowMap.enabled = true;
-	renderer.shadowMap.type = PCFSoftShadowMap;
+	renderer.shadowMap.type = PCFShadowMap;
 
 	scene.background = new Color(0xf5f5f5);
 	scene.fog = new Fog(0xf5f5f5, 20, 50);
