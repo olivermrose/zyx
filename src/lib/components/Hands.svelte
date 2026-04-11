@@ -1,13 +1,9 @@
 <script lang="ts">
-	import type { NormalizedLandmark } from "@mediapipe/tasks-vision";
 	import { LANDMARKS } from "$lib/constants";
 	import { T } from "@threlte/core";
-	import { Color, Vector3 } from "three";
+	import { Color } from "three";
 	import { hands } from "$lib/state.svelte";
-
-	function translateLandmark(lm: NormalizedLandmark) {
-		return new Vector3(-(lm.x - 0.5) * 18, -(lm.y - 0.5) * 10, lm.z * -6 + 2);
-	}
+	import { translateLandmark } from "$lib/util";
 </script>
 
 <!-- eslint-disable svelte/require-each-key -->

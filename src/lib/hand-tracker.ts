@@ -1,14 +1,10 @@
-import { FilesetResolver, HandLandmarker, type NormalizedLandmark } from "@mediapipe/tasks-vision";
+import { FilesetResolver, HandLandmarker } from "@mediapipe/tasks-vision";
 import { hands } from "./state.svelte";
+import { Hand } from "./hand.svelte";
 
 const WASM_CDN = "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/wasm";
 const MODEL_URL =
 	"https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task";
-
-export interface Hand {
-	landmarks: NormalizedLandmark[];
-	handedness: "Left" | "Right";
-}
 
 export class HandTracker {
 	#landmarker?: HandLandmarker;
@@ -52,12 +48,10 @@ export class HandTracker {
 			const result = this.#landmarker.detectForVideo(this.video, now);
 
 			hands.current = result.landmarks.map((landmarks, i) => {
-				const handedness = result.handedness[i][0].categoryName as "Left" | "Right";
-
-				return {
+				return new Hand(
 					landmarks,
-					handedness,
-				};
+					result.handedness[i][0].categoryName as "Left" | "Right",
+				);
 			});
 		}
 
