@@ -10,9 +10,10 @@
 	}
 </script>
 
-{#each hands.current as hand (hand.handedness)}
+<!-- eslint-disable svelte/require-each-key -->
+
+{#each hands.current as hand}
 	<T.Group name="{hand.handedness} Hand">
-		<!-- eslint-disable-next-line svelte/require-each-key -->
 		{#each hand.landmarks as landmark}
 			<T.Mesh position={translateLandmark(landmark).toArray()}>
 				<T.SphereGeometry args={[0.05, 8, 8]} />
@@ -25,7 +26,6 @@
 			</T.Mesh>
 		{/each}
 
-		<!-- eslint-disable-next-line svelte/require-each-key -->
 		{#each LANDMARKS as [start, end]}
 			<T.Line>
 				<T.BufferGeometry
