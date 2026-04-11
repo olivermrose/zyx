@@ -3,6 +3,7 @@
 	import { OrbitControls } from "@threlte/extras";
 	import { Color, Fog, PCFSoftShadowMap } from "three";
 	import Hands from "./Hands.svelte";
+	import Rifle from "./Rifle.svelte";
 
 	const { scene, renderer } = useThrelte();
 
@@ -54,4 +55,5 @@
 	<T.MeshStandardMaterial color={0xf0f0f0} roughness={0.95} />
 </T.Mesh>
 
+<Rifle />
 <Hands />
