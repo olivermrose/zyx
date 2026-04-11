@@ -38,6 +38,7 @@
 		"vite": "^8.0.7"
 	},
 	"dependencies": {
+		"@mediapipe/tasks-vision": "^0.10.34",
 		"@threlte/core": "^8.5.9",
 		"@threlte/extras": "^9.14.5",
 		"three": "^0.183.2"

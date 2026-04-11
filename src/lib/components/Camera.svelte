@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { HandTracker } from "$lib/hand-tracker";
 	import { onMount } from "svelte";
 
 	let video = $state<HTMLVideoElement>();
@@ -11,6 +12,9 @@
 
 		const { resolve } = Promise.withResolvers<void>();
 		video.onloadeddata = () => resolve();
+
+		const handTracker = new HandTracker(video);
+		await handTracker.init();
 
 		video.play();
 	});

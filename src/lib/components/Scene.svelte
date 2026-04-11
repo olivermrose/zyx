@@ -2,6 +2,7 @@
 	import { T, useThrelte } from "@threlte/core";
 	import { OrbitControls } from "@threlte/extras";
 	import { Color, Fog, PCFSoftShadowMap } from "three";
+	import Hands from "./Hands.svelte";
 
 	const { scene, renderer } = useThrelte();
 
@@ -37,12 +38,20 @@
 	<T.HemisphereLight args={[0xffffff, 0xddddda, 0.2]} />
 </T.Group>
 
-<T.Mesh name="Floor" position.y={-3} rotation.x={-Math.PI / 2} receiveShadow>
+<T.Mesh
+	name="Floor"
+	position.y={-3}
+	rotation.x={-Math.PI / 2}
+	receiveShadow
+	userData={{ selectable: false }}
+>
 	<T.PlaneGeometry args={[80, 80]} />
 	<T.MeshStandardMaterial color={0xeaeaea} metalness={0.02} roughness={0.35} />
 </T.Mesh>
 
-<T.Mesh name="Wall" position={[0, 10, -8]}>
+<T.Mesh name="Wall" position={[0, 10, -8]} receiveShadow userData={{ selectable: false }}>
 	<T.PlaneGeometry args={[80, 80]} />
 	<T.MeshStandardMaterial color={0xf0f0f0} roughness={0.95} />
 </T.Mesh>
+
+<Hands />
