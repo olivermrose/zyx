@@ -10,7 +10,7 @@
 		type MeshStandardMaterial,
 	} from "three";
 	import { useTask } from "@threlte/core";
-	import { hands } from "$lib/state.svelte";
+	import { hands, grabbedPart } from "$lib/state.svelte";
 	import { Hand } from "$lib/hand.svelte";
 	import Rifle from "./Rifle.svelte";
 	import { mix } from "motion-sv";
@@ -154,6 +154,7 @@
 
 		updatePartCenter(grabbed);
 		grabbed = null;
+		grabbedPart.current = "";
 	}
 
 	useTask(() => {
@@ -212,6 +213,7 @@
 
 				grabbed = near;
 				hovered = null;
+				grabbedPart.current = near.mesh.name.replace(/^Rifle_/, "");
 
 				clearHighlight(grabbed);
 				rifle.attach(near.mesh);

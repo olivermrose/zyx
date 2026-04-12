@@ -40,7 +40,7 @@ export const ANNOTATIONS = [
 	{
 		id: "02",
 		part: "Bolt",
-		desc: "Two-lug rotating bolt with a 90° throw. Strips, chambers, and extracts in a single cycling motion — field-tested to function reliably at temperatures below −40°C.",
+		desc: "Two-lug rotating bolt with a 90° throw. Strips, chambers, and extracts in a single cycling motion — field-tested to function reliably at temperatures below -40°C.",
 	},
 	{
 		id: "03",
@@ -54,7 +54,7 @@ export const ANNOTATIONS = [
 	},
 	{
 		id: "05",
-		part: "Cartridge",
+		part: "Bullet",
 		desc: "Chambered in 7.62×54mmR. The rimmed bottleneck cartridge entered service in 1891 and remained unchanged for over half a century — a testament to its design integrity.",
 	},
 	{
