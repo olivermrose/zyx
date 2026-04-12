@@ -7,10 +7,6 @@
 	const { children } = $props();
 </script>
 
-<svelte:head>
-	<title>VK-43 · Vostok Karabin Model 1943</title>
-</svelte:head>
-
 <main>
 	{@render children()}
 </main>
