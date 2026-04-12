@@ -26,7 +26,7 @@
 				class={[
 					"group relative z-1 inline-flex items-center gap-2 overflow-hidden border border-slate-900 px-6 py-4 font-semibold uppercase",
 					"before:absolute before:inset-x-0 before:-bottom-full before:-z-1 before:size-full before:bg-slate-900",
-					"hover:text-black hover:before:bottom-0",
+					"hover:text-off-white hover:before:bottom-0",
 					"transition-colors duration-500 before:transition-all before:duration-500",
 				]}
 				href="/explore"

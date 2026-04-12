@@ -6,11 +6,12 @@
 	--font-display: Gloock, serif;
 
 	--color-accent: oklch(37.202% 0.07526 62.344);
+	--color-off-white: oklch(99% 0.02 95);
 }
 
 @layer base {
 	html {
-		background-color: oklch(99% 0.02 95);
+		background-color: var(--color-off-white);
 		color: var(--color-slate-900);
 	}
 }
