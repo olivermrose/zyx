@@ -14,7 +14,7 @@
 	scene.fog = new Fog(0xf5f5f5, 20, 50);
 </script>
 
-<T.PerspectiveCamera args={[60, 1, 0.1, 1000]} position={[0, 0, 12]} makeDefault>
+<T.PerspectiveCamera args={[60, 1, 0.1, 1000]} position={[0, 2.5, 10]} makeDefault>
 	<OrbitControls />
 </T.PerspectiveCamera>
 
