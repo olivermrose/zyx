@@ -11,6 +11,14 @@
 	const annotation = $derived(ANNOTATIONS.find((a) => a.part === grabbedPart.current));
 </script>
 
+<div class="fixed top-6 left-1/2 z-1 -translate-x-1/2 translate-y-0">
+	<p class="text-center text-slate-900">
+		Move your hands in front of your camera and hover over a part. Pinch near its center and
+		drag with your dominant hand to move and rotate it. Pinch with your non-dominant hand while
+		a part is grabbed to scale it.
+	</p>
+</div>
+
 <div class="fixed inset-0">
 	<Canvas>
 		{#if dev}
