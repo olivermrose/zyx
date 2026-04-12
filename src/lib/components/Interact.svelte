@@ -13,6 +13,7 @@
 	import { hands } from "$lib/state.svelte";
 	import { Hand } from "$lib/hand.svelte";
 	import Rifle from "./Rifle.svelte";
+	import { mix } from "motion-sv";
 
 	interface RiflePart {
 		mesh: Mesh;
@@ -172,8 +173,9 @@
 
 		handLostFrames = 0;
 
-		const [hand] = hands.current;
-		const pinch = getPinchInfo(hand);
+		// Primary for movement, secondary for scaling
+		const [primary, secondary] = hands.current;
+		const pinch = getPinchInfo(primary);
 
 		const threshold = grabbed ? PINCH_RELEASE_THRESHOLD : PINCH_GRAB_THRESHOLD;
 		const nowPinching = pinch.dist < threshold;
@@ -209,7 +211,7 @@
 				grabOffset.sub(pinch.pos);
 				grabOffset.y += GRAB_LIFT;
 
-				grabStartHandQ.copy(hand.updateQuaternion());
+				grabStartHandQ.copy(primary.updateQuaternion());
 				grabStartLocalQ.copy(near.mesh.quaternion);
 			}
 		}
@@ -224,9 +226,16 @@
 			grabbed.mesh.position.lerp(pinchTarget, MOVE_LERP);
 
 			startQ.copy(grabStartHandQ).invert();
-			deltaQ.copy(hand.updateQuaternion()).multiply(startQ).multiply(grabStartLocalQ);
+			deltaQ.copy(primary.updateQuaternion()).multiply(startQ).multiply(grabStartLocalQ);
 
 			grabbed.mesh.quaternion.slerp(deltaQ, MOVE_LERP);
+
+			if (secondary) {
+				const scaleDist = secondary.getPinchDistance();
+				const s = mix(0.01, 0.03)(scaleDist + 0.05);
+
+				grabbed.mesh.scale.lerp(new Vector3(s, s, s), MOVE_LERP);
+			}
 
 			updatePartCenter(grabbed);
 		}
