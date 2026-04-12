@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { LANDMARKS } from "$lib/constants";
-	import { T } from "@threlte/core";
-	import { Color } from "three";
 	import { hands } from "$lib/state.svelte";
 	import { translateLandmark } from "$lib/util";
+	import { T } from "@threlte/core";
+	import { Color } from "three";
 </script>
 
 <!-- eslint-disable svelte/require-each-key -->

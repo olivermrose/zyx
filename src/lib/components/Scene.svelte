@@ -10,8 +10,8 @@
 	renderer.shadowMap.enabled = true;
 	renderer.shadowMap.type = PCFShadowMap;
 
-	scene.background = new Color(0xf5f5f5);
-	scene.fog = new Fog(0xf5f5f5, 20, 50);
+	scene.background = new Color(0xF5F5F5);
+	scene.fog = new Fog(0xF5F5F5, 20, 50);
 </script>
 
 <T.PerspectiveCamera args={[60, 1, 0.1, 1000]} position={[0, 2.5, 10]} makeDefault>
@@ -20,7 +20,7 @@
 
 <T.Group name="Lighting">
 	<T.SpotLight
-		args={[0xffffff, 180, 50, 0.5, 0.7, 2]}
+		args={[0xFFFFFF, 180, 50, 0.5, 0.7, 2]}
 		position={[0, 15, 5]}
 		castShadow
 		shadow.mapSize={[1024, 1024]}
@@ -35,7 +35,7 @@
 	/>
 
 	<T.AmbientLight intensity={0.35} />
-	<T.HemisphereLight args={[0xffffff, 0xddddda, 0.2]} />
+	<T.HemisphereLight args={[0xFFFFFF, 0xDDDDDA, 0.2]} />
 </T.Group>
 
 <T.Mesh
@@ -46,12 +46,12 @@
 	userData={{ selectable: false }}
 >
 	<T.PlaneGeometry args={[80, 80]} />
-	<T.MeshStandardMaterial color={0xeaeaea} metalness={0.02} roughness={0.35} />
+	<T.MeshStandardMaterial color={0xEAEAEA} metalness={0.02} roughness={0.35} />
 </T.Mesh>
 
 <T.Mesh name="Wall" position={[0, 10, -8]} receiveShadow userData={{ selectable: false }}>
 	<T.PlaneGeometry args={[80, 80]} />
-	<T.MeshStandardMaterial color={0xf0f0f0} roughness={0.95} />
+	<T.MeshStandardMaterial color={0xF0F0F0} roughness={0.95} />
 </T.Mesh>
 
 <Interact />

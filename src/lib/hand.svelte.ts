@@ -1,6 +1,6 @@
 import type { NormalizedLandmark } from "@mediapipe/tasks-vision";
-import { translateLandmark } from "./util";
 import { Matrix4, Quaternion, Vector3 } from "three";
+import { translateLandmark } from "./util";
 
 const forward = new Vector3();
 const right = new Vector3();

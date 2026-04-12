@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { Canvas } from "@threlte/core";
-	import { Studio } from "@threlte/studio";
 	import { dev } from "$app/environment";
-	import { grabbedPart } from "$lib/state.svelte";
 	import Camera from "$lib/components/Camera.svelte";
 	import Scene from "$lib/components/Scene.svelte";
 	import { ANNOTATIONS } from "$lib/constants";
+	import { grabbedPart } from "$lib/state.svelte";
+	import { Canvas } from "@threlte/core";
+	import { Studio } from "@threlte/studio";
 	import { fade } from "svelte/transition";
 
 	const annotation = $derived(ANNOTATIONS.find((a) => a.part === grabbedPart.current));

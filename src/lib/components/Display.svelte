@@ -1,6 +1,7 @@
 <script lang="ts">
+	import type {PerspectiveCamera} from "three";
 	import { T, useTask, useThrelte } from "@threlte/core";
-	import { Vector3, type PerspectiveCamera } from "three";
+import {  Vector3 } from "three";
 	import Rifle from "./Rifle.svelte";
 
 	interface Hotspot {
@@ -23,7 +24,7 @@
 
 	const LERP_FACTOR = 0.08;
 
-	let { progress }: { progress: number } = $props();
+	const { progress }: { progress: number } = $props();
 
 	const { scene, renderer } = useThrelte();
 
@@ -78,7 +79,7 @@
 
 <T.Group>
 	<T.SpotLight
-		args={[0xffffff, 150, 60, 0.4, 0.5, 2]}
+		args={[0xFFFFFF, 150, 60, 0.4, 0.5, 2]}
 		position={[5, 15, 8]}
 		oncreate={(ref) => {
 			ref.target.position.set(0, 0, 0);
@@ -90,7 +91,7 @@
 	/>
 
 	<T.AmbientLight intensity={0.5} />
-	<T.HemisphereLight args={[0xfff5e0, 0xe8e0d0, 0.4]} />
+	<T.HemisphereLight args={[0xFFF5E0, 0xE8E0D0, 0.4]} />
 </T.Group>
 
 <Rifle />

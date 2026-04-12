@@ -1,19 +1,20 @@
 <script lang="ts">
-	import {
-		Vector3,
-		Quaternion,
-		Matrix4,
+	import type {Group, MeshStandardMaterial} from "three";
+	import { Hand } from "$lib/hand.svelte";
+	import { grabbedPart, hands } from "$lib/state.svelte";
+	import { useTask } from "@threlte/core";
+	import { mix } from "motion-sv";
+import {
 		Box3,
 		Color,
+		
+		Matrix4,
 		Mesh,
-		type Group,
-		type MeshStandardMaterial,
+		
+		Quaternion,
+		Vector3
 	} from "three";
-	import { useTask } from "@threlte/core";
-	import { hands, grabbedPart } from "$lib/state.svelte";
-	import { Hand } from "$lib/hand.svelte";
 	import Rifle from "./Rifle.svelte";
-	import { mix } from "motion-sv";
 
 	interface RiflePart {
 		mesh: Mesh;
@@ -32,18 +33,18 @@
 	const SMOOTH_FACTOR = 0.4;
 	const HAND_LOST_GRACE_FRAMES = 15;
 
-	const HIGHLIGHT_COLOR = new Color(0x00e5ff);
+	const HIGHLIGHT_COLOR = new Color(0x00E5FF);
 	const BLACK = new Color(0x000000);
 
 	let rifle = $state<Group>();
 
-	let parts: RiflePart[] = [];
+	const parts: RiflePart[] = [];
 	let grabbed: RiflePart | null = null;
 	let hovered: RiflePart | null = null;
 
-	let grabOffset = new Vector3();
-	let grabStartHandQ = new Quaternion();
-	let grabStartLocalQ = new Quaternion();
+	const grabOffset = new Vector3();
+	const grabStartHandQ = new Quaternion();
+	const grabStartLocalQ = new Quaternion();
 
 	let smoothedPinchDist = 1.0;
 	let smoothedPinchPos: Vector3 | null = null;

@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { T } from "@threlte/core";
-	import { useGltf, useDraco } from "@threlte/extras";
 	import type { Group, Mesh, MeshStandardMaterial } from "three";
+	import { T } from "@threlte/core";
+	import { useDraco, useGltf } from "@threlte/extras";
 	import rifleUrl from "../assets/rifle.glb?url";
 
 	type RifleNodes =

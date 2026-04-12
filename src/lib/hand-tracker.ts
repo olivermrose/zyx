@@ -1,6 +1,6 @@
 import { FilesetResolver, HandLandmarker } from "@mediapipe/tasks-vision";
-import { hands } from "./state.svelte";
 import { Hand } from "./hand.svelte";
+import { hands } from "./state.svelte";
 
 const WASM_CDN = "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/wasm";
 const MODEL_URL =
@@ -10,7 +10,7 @@ export class HandTracker {
 	#landmarker?: HandLandmarker;
 	#running = false;
 	#lastVideoTime = 0;
-	#rafId = NaN;
+	#rafId = Number.NaN;
 
 	public constructor(private readonly video: HTMLVideoElement) {}
 

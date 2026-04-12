@@ -4,7 +4,7 @@
 	import "@fontsource-variable/eb-garamond/wght.css";
 	import "@fontsource-variable/roboto-condensed/wght.css";
 
-	let { children } = $props();
+	const { children } = $props();
 </script>
 
 <svelte:head>
