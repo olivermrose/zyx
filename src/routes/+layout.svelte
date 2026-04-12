@@ -1,9 +1,16 @@
 <script lang="ts">
 	import "./layout.css";
-	import favicon from "$lib/assets/favicon.svg";
+	import "@fontsource/gloock";
+	import "@fontsource-variable/eb-garamond/wght.css";
+	import "@fontsource-variable/roboto-condensed/wght.css";
 
 	let { children } = $props();
 </script>
 
-<svelte:head><link rel="icon" href={favicon} /></svelte:head>
-{@render children()}
+<svelte:head>
+	<title>VK-43 · Vostok Karabin Model 1943</title>
+</svelte:head>
+
+<main>
+	{@render children()}
+</main>

@@ -3,7 +3,7 @@
 	import { OrbitControls } from "@threlte/extras";
 	import { Color, Fog, PCFShadowMap } from "three";
 	import Hands from "./Hands.svelte";
-	import Rifle from "./Rifle.svelte";
+	import Interact from "./Interact.svelte";
 
 	const { scene, renderer } = useThrelte();
 
@@ -28,7 +28,6 @@
 		shadow.camera.far={35}
 		shadow.bias={-0.0001}
 		oncreate={(ref) => {
-			ref.target.name = "Spotlight Target";
 			scene.add(ref.target);
 
 			return () => scene.remove(ref.target);
@@ -55,5 +54,5 @@
 	<T.MeshStandardMaterial color={0xf0f0f0} roughness={0.95} />
 </T.Mesh>
 
-<Rifle />
+<Interact />
 <Hands />
