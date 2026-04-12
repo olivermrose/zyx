@@ -19,6 +19,7 @@
 		mesh: Mesh;
 		center: Vector3;
 		matrix: Matrix4;
+		targetOpacity: number;
 	}
 
 	const PINCH_GRAB_THRESHOLD = 0.05;
@@ -27,6 +28,7 @@
 	const GRAB_RADIUS = 1.5;
 	const GRAB_LIFT = 0.4;
 	const MOVE_LERP = 0.45;
+	const OPACITY_LERP = 0.2;
 	const SMOOTH_FACTOR = 0.4;
 	const HAND_LOST_GRACE_FRAMES = 15;
 
@@ -69,10 +71,14 @@
 			box.setFromObject(node);
 			const center = box.getCenter(new Vector3());
 
+			const mat = node.material as MeshStandardMaterial;
+			mat.transparent = true;
+
 			parts.push({
 				mesh: node,
 				center,
 				matrix: node.matrix.clone(),
+				targetOpacity: 1,
 			});
 		});
 	}
@@ -141,6 +147,10 @@
 			grabbed.mesh.quaternion,
 			grabbed.mesh.scale,
 		);
+
+		for (const part of parts) {
+			part.targetOpacity = 1;
+		}
 
 		updatePartCenter(grabbed);
 		grabbed = null;
@@ -212,6 +222,12 @@
 
 				grabStartHandQ.copy(primary.updateQuaternion());
 				grabStartLocalQ.copy(near.mesh.quaternion);
+
+				for (const part of parts) {
+					if (part !== near) {
+						part.targetOpacity = 0;
+					}
+				}
 			}
 		}
 
@@ -237,6 +253,19 @@
 			}
 
 			updatePartCenter(grabbed);
+		}
+
+		for (const part of parts) {
+			const mat = part.mesh.material as MeshStandardMaterial;
+			const currentOpacity = mat.opacity ?? 1;
+
+			mat.opacity = currentOpacity + (part.targetOpacity - currentOpacity) * OPACITY_LERP;
+
+			if (part.targetOpacity === 0 && mat.opacity < 0.05) {
+				part.mesh.visible = false;
+			} else if (part.targetOpacity === 1) {
+				part.mesh.visible = true;
+			}
 		}
 
 		wasPinching = nowPinching;
