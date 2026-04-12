@@ -25,7 +25,7 @@
 	const PINCH_RELEASE_THRESHOLD = 0.1;
 	const HOVER_RADIUS = 1.0;
 	const GRAB_RADIUS = 1.5;
-	const GRAB_LIFT = 0.6;
+	const GRAB_LIFT = 0.4;
 	const MOVE_LERP = 0.45;
 	const SMOOTH_FACTOR = 0.4;
 	const HAND_LOST_GRACE_FRAMES = 15;
