@@ -31,7 +31,6 @@
 	const HAND_LOST_GRACE_FRAMES = 15;
 
 	const HIGHLIGHT_COLOR = new Color(0x00e5ff);
-	const GRAB_COLOR = new Color(0x7c4dff);
 	const BLACK = new Color(0x000000);
 
 	let rifle = $state<Group>();
@@ -204,7 +203,7 @@
 				grabbed = near;
 				hovered = null;
 
-				highlight(near, GRAB_COLOR, 0.6);
+				clearHighlight(grabbed);
 				rifle.attach(near.mesh);
 
 				near.mesh.getWorldPosition(grabOffset);
