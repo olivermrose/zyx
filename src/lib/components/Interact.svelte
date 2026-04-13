@@ -241,7 +241,7 @@
 
 			if (secondary) {
 				const scaleDist = secondary.getPinchDistance();
-				const s = mix(0.01, 0.03)(scaleDist + 0.05);
+				const s = mix(0.01, 0.04)(scaleDist + 0.05);
 
 				grabbed.mesh.scale.lerp(new Vector3(s, s, s), MOVE_LERP);
 			}
