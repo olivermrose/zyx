@@ -1,19 +1,10 @@
 <script lang="ts">
-	import type {Group, MeshStandardMaterial} from "three";
+	import type { Group, MeshStandardMaterial } from "three";
 	import { Hand } from "$lib/hand.svelte";
 	import { grabbedPart, hands } from "$lib/state.svelte";
 	import { useTask } from "@threlte/core";
 	import { mix } from "motion-sv";
-import {
-		Box3,
-		Color,
-		
-		Matrix4,
-		Mesh,
-		
-		Quaternion,
-		Vector3
-	} from "three";
+	import { Box3, Color, Matrix4, Mesh, Quaternion, Vector3 } from "three";
 	import Rifle from "./Rifle.svelte";
 
 	interface RiflePart {
@@ -33,7 +24,7 @@ import {
 	const SMOOTH_FACTOR = 0.4;
 	const HAND_LOST_GRACE_FRAMES = 15;
 
-	const HIGHLIGHT_COLOR = new Color(0x00E5FF);
+	const HIGHLIGHT_COLOR = new Color(0x00e5ff);
 	const BLACK = new Color(0x000000);
 
 	let rifle = $state<Group>();
@@ -214,7 +205,7 @@ import {
 
 				grabbed = near;
 				hovered = null;
-				grabbedPart.current = near.mesh.name.replace(/^Rifle_/, "");
+				grabbedPart.current = near.mesh.name;
 
 				clearHighlight(grabbed);
 				rifle.attach(near.mesh);
