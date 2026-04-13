@@ -4,14 +4,7 @@
 	import { useDraco, useGltf } from "@threlte/extras";
 	import rifleUrl from "../assets/rifle.glb?url";
 
-	type RifleNodes =
-		| "Rifle_Body"
-		| "Rifle_Bayonet"
-		| "Rifle_Bolt"
-		| "Rifle_Bullet"
-		| "Rifle_Magazine"
-		| "Rifle_Sight";
-
+	type RifleNodes = `Rifle_${RifleMaterials}`;
 	type RifleMaterials = "Body" | "Bayonet" | "Bolt" | "Bullet" | "Magazine" | "Sight";
 
 	interface RifleGltf {
