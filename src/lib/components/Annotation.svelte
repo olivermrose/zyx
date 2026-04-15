@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { ANNOTATIONS } from "$lib/constants";
+	import { ANNOTATIONS } from "$lib/data/annotations";
 	import { cubicIn, cubicOut } from "svelte/easing";
 	import { fade, fly } from "svelte/transition";
 

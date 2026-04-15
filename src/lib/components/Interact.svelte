@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Group, MeshStandardMaterial } from "three";
 	import { Hand } from "$lib/hand.svelte";
-	import { grabbedPart, hands } from "$lib/state.svelte";
+	import { grabbedPart, hands, interactionPhase } from "$lib/state.svelte";
 	import { useTask } from "@threlte/core";
 	import { mix } from "motion-sv";
 	import { Box3, Color, Matrix4, Mesh, Quaternion, Vector3 } from "three";
@@ -14,6 +14,12 @@
 		targetOpacity: number;
 	}
 
+	interface Props {
+		attractEnabled?: boolean;
+	}
+
+	const { attractEnabled = true }: Props = $props();
+
 	const PINCH_GRAB_THRESHOLD = 0.05;
 	const PINCH_RELEASE_THRESHOLD = 0.1;
 	const HOVER_RADIUS = 1.0;
@@ -23,6 +29,10 @@
 	const OPACITY_LERP = 0.2;
 	const SMOOTH_FACTOR = 0.4;
 	const HAND_LOST_GRACE_FRAMES = 15;
+	const ATTRACT_ROT_SPEED = 0.3;
+	const ATTRACT_BOB_SPEED = 0.7;
+	const ATTRACT_BOB_AMP = 0.12;
+	const ATTRACT_BLEND_SPEED = 2.0;
 
 	const HIGHLIGHT_COLOR = new Color(0x00e5ff);
 	const BLACK = new Color(0x000000);
@@ -42,6 +52,8 @@
 
 	let wasPinching = false;
 	let handLostFrames = 0;
+	let time = 0;
+	let attractBlend = 0;
 
 	// For reuse without allocations
 	const box = new Box3();
@@ -149,7 +161,24 @@
 		grabbedPart.current = "";
 	}
 
-	useTask(() => {
+	useTask((delta) => {
+		time += delta;
+
+		const isAttracting = hands.current.length === 0 && !grabbed && attractEnabled;
+		attractBlend +=
+			((isAttracting ? 1 : 0) - attractBlend) * Math.min(1, ATTRACT_BLEND_SPEED * delta);
+
+		interactionPhase.current = grabbed
+			? "commit"
+			: hands.current.length > 0
+				? "engage"
+				: "attract";
+
+		if (rifle) {
+			rifle.rotation.y = Math.sin(time * ATTRACT_ROT_SPEED) * 0.5 * attractBlend;
+			rifle.position.y = Math.sin(time * ATTRACT_BOB_SPEED) * ATTRACT_BOB_AMP * attractBlend;
+		}
+
 		if (!rifle) return;
 
 		if (hands.current.length === 0) {
