@@ -42,6 +42,26 @@ export class Hand {
 		});
 	}
 
+	public getSpreadValue() {
+		const wrist = this.landmarks[0];
+		const middleMCP = this.landmarks[9];
+		const indexTip = this.landmarks[8];
+		const pinkyTip = this.landmarks[20];
+
+		const handSizeSq =
+			(middleMCP.x - wrist.x) ** 2 +
+			(middleMCP.y - wrist.y) ** 2 +
+			(middleMCP.z - wrist.z) ** 2;
+		const handSize = Math.sqrt(handSizeSq) || 1;
+
+		const spreadDx = indexTip.x - pinkyTip.x;
+		const spreadDy = indexTip.y - pinkyTip.y;
+		const spreadDz = indexTip.z - pinkyTip.z;
+		const spread = Math.sqrt(spreadDx * spreadDx + spreadDy * spreadDy + spreadDz * spreadDz);
+
+		return spread / handSize;
+	}
+
 	public updateQuaternion() {
 		const wrist = this.landmarks[0];
 		const indexMCP = this.landmarks[5];

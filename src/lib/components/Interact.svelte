@@ -12,6 +12,8 @@
 		center: Vector3;
 		matrix: Matrix4;
 		targetOpacity: number;
+		homePos: Vector3;
+		explodeDir: Vector3;
 	}
 
 	interface Props {
@@ -34,6 +36,12 @@
 	const ATTRACT_BOB_AMP = 0.12;
 	const ATTRACT_BLEND_SPEED = 2.0;
 
+	const SPREAD_OPEN_THRESHOLD = 1.0;
+	const SPREAD_CLOSE_THRESHOLD = 0.6;
+	const EXPLODE_DISTANCE = 0.5;
+	const EXPLODE_LERP = 0.08;
+	const EXPLODE_BLEND_SPEED = 3.0;
+
 	const HIGHLIGHT_COLOR = new Color(0x00e5ff);
 	const BLACK = new Color(0x000000);
 
@@ -55,11 +63,15 @@
 	let time = 0;
 	let attractBlend = 0;
 
+	let isExploded = false;
+	let explodeBlend = 0;
+
 	// For reuse without allocations
 	const box = new Box3();
 	const deltaQ = new Quaternion();
 	const startQ = new Quaternion();
 	const pinchTarget = new Vector3();
+	const explodeTarget = new Vector3();
 
 	$effect(() => {
 		if (rifle) {
@@ -78,11 +90,17 @@
 			const mat = node.material as MeshStandardMaterial;
 			mat.transparent = true;
 
+			const localCenter = root.worldToLocal(center.clone());
+			if (localCenter.length() < 0.01) localCenter.set(0, 1, 0);
+			else localCenter.normalize();
+
 			parts.push({
 				mesh: node,
 				center,
 				matrix: node.matrix.clone(),
 				targetOpacity: 1,
+				homePos: node.position.clone(),
+				explodeDir: localCenter,
 			});
 		});
 	}
@@ -194,6 +212,7 @@
 					release();
 				}
 
+				isExploded = false;
 				wasPinching = false;
 				smoothedPinchPos = null;
 				smoothedPinchDist = 1.0;
@@ -220,6 +239,22 @@
 
 				if (hovered) {
 					highlight(hovered, HIGHLIGHT_COLOR, 0.3);
+				}
+			}
+		}
+
+		// Spread/close gesture — disassembles or reassembles the model.
+		// Blocked when hovering over or grabbing a part to avoid pinch conflicts.
+		if (!hovered && !grabbed) {
+			for (const hand of hands.current) {
+				const openVal = hand.getSpreadValue();
+				if (!isExploded && openVal > SPREAD_OPEN_THRESHOLD) {
+					isExploded = true;
+					break;
+				}
+				if (isExploded && openVal < SPREAD_CLOSE_THRESHOLD) {
+					isExploded = false;
+					break;
 				}
 			}
 		}
@@ -288,6 +323,20 @@
 				part.mesh.visible = false;
 			} else if (part.targetOpacity === 1) {
 				part.mesh.visible = true;
+			}
+		}
+
+		// Smooth explode blend and animate parts to exploded/assembled positions
+		explodeBlend +=
+			((isExploded ? 1 : 0) - explodeBlend) * Math.min(1, EXPLODE_BLEND_SPEED * delta);
+
+		if (explodeBlend > 0.001) {
+			for (const part of parts) {
+				if (part === grabbed) continue;
+				explodeTarget
+					.copy(part.homePos)
+					.addScaledVector(part.explodeDir, EXPLODE_DISTANCE * explodeBlend);
+				part.mesh.position.lerp(explodeTarget, EXPLODE_LERP);
 			}
 		}
 
