@@ -60,7 +60,7 @@
 		<!-- Hero text: fades in on dissolve, out as annotations begin -->
 		<div
 			class="pointer-events-none absolute inset-0 flex flex-col items-center justify-between py-16"
-			style="opacity: {heroOpacity}"
+			style:opacity={heroOpacity}
 		>
 			<div class="text-center">
 				<span class="font-sans text-xs font-semibold tracking-widest text-accent uppercase">
