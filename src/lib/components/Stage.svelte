@@ -8,13 +8,13 @@
 <div class="pointer-events-none fixed inset-0 z-10" style:opacity>
 	{#if interactionPhase.current === "attract"}
 		<div class="mt-16 flex h-full flex-col items-center" transition:fade={{ duration: 300 }}>
-			<p
+			<span
 				class="text-center font-display text-fluid-7xl/normal font-normal tracking-widest text-slate-900 uppercase"
 			>
 				Raise your hand
-			</p>
+			</span>
 
-			<p class="font-serif text-2xl text-slate-900">to interact</p>
+			<span class="font-serif text-2xl text-slate-900">to interact</span>
 		</div>
 
 		<div
