@@ -3,7 +3,6 @@
 	import Camera from "$lib/components/Camera.svelte";
 	import Scene from "$lib/components/Scene.svelte";
 	import Stage from "$lib/components/Stage.svelte";
-	import { menuOpen } from "$lib/state.svelte";
 	import { Canvas } from "@threlte/core";
 	import Lenis from "lenis";
 	import { frame, useScroll } from "motion-sv";
@@ -57,7 +56,6 @@
 
 <div class="relative h-[1200vh]" bind:this={driver}>
 	<div class="sticky top-0 h-screen overflow-hidden">
-		<!-- Hero text: fades in on dissolve, out as annotations begin -->
 		<div
 			class="pointer-events-none absolute inset-0 flex flex-col items-center justify-between py-16"
 			style:opacity={heroOpacity}
@@ -98,14 +96,14 @@
 						history.
 					</p>
 
-					<button
+					<a
 						class={[
 							"group relative z-1 inline-flex items-center gap-2 overflow-hidden border border-slate-900 px-6 py-4 font-semibold uppercase",
 							"before:absolute before:inset-x-0 before:-bottom-full before:-z-1 before:size-full before:bg-slate-900",
 							"hover:text-off-white hover:before:bottom-0",
 							"transition-colors duration-500 before:transition-all before:duration-500",
 						]}
-						onclick={() => (menuOpen.current = true)}
+						href="/"
 					>
 						<span>Browse collection</span>
 
@@ -125,7 +123,7 @@
 								stroke-linejoin="round"
 							/>
 						</svg>
-					</button>
+					</a>
 				</div>
 			</section>
 		{/if}
